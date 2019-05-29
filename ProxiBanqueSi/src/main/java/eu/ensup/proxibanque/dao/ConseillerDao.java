@@ -101,6 +101,7 @@ public class ConseillerDao extends AccesBd {
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return null;
 		}
 
 		seDeconnecter();

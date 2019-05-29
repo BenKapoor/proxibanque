@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import eu.ensup.proxibanque.domaine.Personne;
 import eu.ensup.proxibanque.service.ConseillerService;
+import eu.ensup.proxibanque.service.GerantService;
 
 public class TestMethode {
 
@@ -14,15 +15,20 @@ public class TestMethode {
 		ConseillerService cs = new ConseillerService();
 		String id = "1";
 		
-		//Les deux méthodes fonctionnent
-		//cs.suppressionClient(id);  
-		//cs.modificationClient(personne);
+		GerantService gs = new GerantService();
 		
-		//Retourne une liste de Client
-		//ArrayList<Personne> listePersonne = new ArrayList<Personne>();
-		//listePersonne = cs.listeDesClients();
-		
+		// Les deux méthodes fonctionnent
+		// cs.suppressionClient(id);
+		// cs.modificationClient(personne);
+
+		// Retourne une liste de Client
+		// ArrayList<Personne> listePersonne = new ArrayList<Personne>();
+		// listePersonne = cs.listeDesClients();
+
+		// Retourne une liste de Conseiller
+		 ArrayList<Personne> listePersonne = new ArrayList<Personne>();
+		 listePersonne = gs.listeDesConseillers();
+		 System.out.println(listePersonne);
 	}
-	
 
 }
