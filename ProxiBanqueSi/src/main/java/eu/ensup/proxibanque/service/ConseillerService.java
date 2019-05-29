@@ -31,9 +31,9 @@ public class ConseillerService {
 		return true;
 	}
 
-	public boolean suppressionClient(Personne personne) {
+	public boolean suppressionClient(String id) {
 		// TODO Auto-generated method stub
-		conseillerDao.suppressionClient(personne);
+		conseillerDao.suppressionClient(id);
 		return true;
 	}
 

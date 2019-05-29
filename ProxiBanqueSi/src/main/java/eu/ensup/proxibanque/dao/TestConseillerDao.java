@@ -63,9 +63,9 @@ public class TestConseillerDao {
 	{
 		String id = "AAZZZZ";
 		Personne personne = new Personne("AAZZZZ", "Aziz", "Aziz", "19 rue d'Aziz", 45555, "Aziz-sur-mer", 0102030405);
-		when(conseillerDaoMock.suppressionClient(personne)).thenReturn(true);
+		when(conseillerDaoMock.suppressionClient(id)).thenReturn(true);
 		
-		assertEquals(true, conseillerServiceMock.suppressionClient(personne));	
+		assertEquals(true, conseillerServiceMock.suppressionClient(id));	
 	}
 	@Test
 	public void TestListeDesClients()
