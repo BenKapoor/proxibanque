@@ -2,7 +2,7 @@ package eu.ensup.proxibanque.domaine;
 
 public class Personne {
 
-	public String id;
+	private String id;
 	private String nom;
 	private String prenom;
 	private String adresse;

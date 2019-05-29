@@ -3,9 +3,9 @@ package eu.ensup.proxibanque.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import eu.ensup.proxibanque.domaine.Personne;
-
 
 public class ConseillerDao extends AccesBd {
 
@@ -24,14 +24,13 @@ public class ConseillerDao extends AccesBd {
 	}
 
 	public boolean modificationClient(Personne personne) {
-		
+
 		seConnecter();
 		try {
 
 			String sql = " UPDATE `personne` SET nom = '" + personne.getNom() + "' , prenom = '" + personne.getPrenom()
-					+ "' , adresse = '" + personne.getAdresse() + "' , CodePostal = '" 
-					+ personne.getCodePostal() + "' , ville = '" + personne.getVille() 
-					+ "' , telephone = '" + personne.getTelephone() 
+					+ "' , adresse = '" + personne.getAdresse() + "' , CodePostal = '" + personne.getCodePostal()
+					+ "' , ville = '" + personne.getVille() + "' , telephone = '" + personne.getTelephone()
 					+ "' WHERE id = '" + personne.getId() + "'";
 			System.out.println("Ligne update");
 
@@ -69,21 +68,34 @@ public class ConseillerDao extends AccesBd {
 
 	public ArrayList<Personne> listeDesClients() {
 
+		String id;
+		String nom;
+		String prenom;
+		String adresse;
+		int codePostal;
+		String ville;
+		int telephone;
+		ArrayList<Personne> listePersonne = new ArrayList<Personne>();
+
 		seConnecter();
 		try {
 
-			String sql = "SELECT * from personne";
+			String sql = "SELECT * from personne, client WHERE personne.id = client.idPersonne";
 
 			rs = st.executeQuery(sql);
 
 			while (rs.next()) {
 
-				int id1 = rs.getInt("id");
-				String name = rs.getString("nom");
-				String prenom = rs.getString("prenom");
+				id = rs.getString("id");
+				nom = rs.getString("nom");
+				prenom = rs.getString("prenom");
+				adresse = rs.getString("adresse");
+				codePostal = rs.getInt("codePostal");
+				ville = rs.getString("ville");
+				telephone = rs.getInt("telephone");
 
-				System.out.println(
-						"Nous avons lid: " + id1 + " qui est lenom de: " + name + " avec un prenom de " + prenom);
+				Personne personne = new Personne(id, nom, prenom, adresse, codePostal, ville, telephone);
+				listePersonne.add(personne);
 			}
 
 		} catch (SQLException e) {
@@ -92,7 +104,6 @@ public class ConseillerDao extends AccesBd {
 		}
 
 		seDeconnecter();
-		return null;
-	}
-
+		return listePersonne;
+}
 }

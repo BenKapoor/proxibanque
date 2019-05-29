@@ -1,5 +1,7 @@
 package eu.ensup.proxibanque.presentation;
 
+import java.util.ArrayList;
+
 import eu.ensup.proxibanque.domaine.Personne;
 import eu.ensup.proxibanque.service.ConseillerService;
 
@@ -11,8 +13,16 @@ public class TestMethode {
 
 		ConseillerService cs = new ConseillerService();
 		String id = "1";
-		//cs.suppressionClient(id);
-		cs.modificationClient(personne);
+		
+		//Les deux méthodes fonctionnent
+		//cs.suppressionClient(id);  
+		//cs.modificationClient(personne);
+		
+		//Retourne une liste de Client
+		//ArrayList<Personne> listePersonne = new ArrayList<Personne>();
+		//listePersonne = cs.listeDesClients();
+		
 	}
+	
 
 }
