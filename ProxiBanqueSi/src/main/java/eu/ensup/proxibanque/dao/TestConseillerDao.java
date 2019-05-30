@@ -32,10 +32,16 @@ public class TestConseillerDao {
 	@Test
 	public void TestCreationClient()
 	{
+		//ConseillerDao dao = new ConseillerDao();
+		
 		Personne personne = new Personne("AAZZZZ", "Aziz", "Aziz", "19 rue d'Aziz", 45555, "Aziz-sur-mer", 0102030405);
 		when(conseillerDaoMock.creationClient(personne)).thenReturn(true);
 		
 		assertEquals(true, conseillerServiceMock.creationClient(personne));
+		
+		// pour tester après création dao
+		//when(dao.creationClient(personne)).thenReturn(true);
+		//assertEquals(true, dao.creationClient(personne));
 	}
 	
 	@Test
@@ -46,6 +52,10 @@ public class TestConseillerDao {
 		when(conseillerDaoMock.afficherInfoClient(id)).thenReturn(personne);
 		
 		assertEquals(id, conseillerServiceMock.afficherInfoClient(id).getId());
+		
+		// pour tester après création dao
+		//when(dao.afficherInfoClient(id)).thenReturn(personne);
+		//assertEquals(id, dao.afficherInfoClient(id).getId());
 	}
 	
 	@Test
@@ -56,6 +66,10 @@ public class TestConseillerDao {
 		when(conseillerDaoMock.modificationClient(personne)).thenReturn(true);
 		
 		assertEquals(true, conseillerServiceMock.modificationClient(personne));
+		
+		// pour tester après création dao
+		//when(dao.modificationClient(personne)).thenReturn(true);
+		//assertEquals(true, dao.modificationClient(personne));
 	}
 	
 	@Test

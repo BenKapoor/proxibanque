@@ -11,15 +11,49 @@ public class ConseillerDao extends AccesBd {
 
 	ResultSet rs = null;
 
-	// SALAM LES RAYES
 	public boolean creationClient(Personne personne) {
 		// TODO Auto-generated method stub
+		seConnecter();
+		try {
+			String sql = "INSERT INTO personne(`id`,`nom`,`prenom`,`adresse`, "
+					+ "`codePostal`, `ville`, `telephone`) values"
+					+ "('"+ personne.getId() +"','"+ personne.getNom() +"','"+ personne.getPrenom() +"',"
+					+ "'"+ personne.getAdresse() +"','"+ personne.getCodePostal() +"',"
+					+ "'"+ personne.getVille() +"','"+ personne.getTelephone() +"');";	
+
+			st.executeQuery(sql);
+
+		} catch (Exception e) {
+			return false;
+		}
+		seDeconnecter();
 		return true;
+
 	}
 
 	public Personne afficherInfoClient(String id) {
 		// TODO Auto-generated method stub
 		Personne personne = new Personne();
+
+		seConnecter();
+		try {
+			ResultSet result = this.seConnecter().createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM personne WHERE id = " + id);
+			if(result.first())
+				personne = new Personne(
+						id,
+						result.getString("nom"),
+						result.getString("prenom"),
+						result.getString("adresse"),
+						result.getInt("codePostal"),
+						result.getString("ville"),
+						result.getInt("telephone")
+						);         
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		seDeconnecter();
 		return personne;
 	}
 
@@ -29,9 +63,9 @@ public class ConseillerDao extends AccesBd {
 		try {
 
 			String sql = " UPDATE `personne` SET nom = '" + personne.getNom() + "' , prenom = '" + personne.getPrenom()
-					+ "' , adresse = '" + personne.getAdresse() + "' , CodePostal = '" + personne.getCodePostal()
-					+ "' , ville = '" + personne.getVille() + "' , telephone = '" + personne.getTelephone()
-					+ "' WHERE id = '" + personne.getId() + "'";
+			+ "' , adresse = '" + personne.getAdresse() + "' , CodePostal = '" + personne.getCodePostal()
+			+ "' , ville = '" + personne.getVille() + "' , telephone = '" + personne.getTelephone()
+			+ "' WHERE id = '" + personne.getId() + "'";
 			System.out.println("Ligne update");
 
 			// Etape 4 : exécution requête
@@ -105,5 +139,5 @@ public class ConseillerDao extends AccesBd {
 
 		seDeconnecter();
 		return listePersonne;
-}
+	}
 }
