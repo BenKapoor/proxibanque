@@ -3,6 +3,7 @@ package eu.ensup.proxibanque.service;
 import java.util.ArrayList;
 
 import eu.ensup.proxibanque.dao.ConseillerDao;
+import eu.ensup.proxibanque.domaine.Compte;
 import eu.ensup.proxibanque.domaine.Personne;
 
 public class ConseillerService {
@@ -39,10 +40,18 @@ public class ConseillerService {
 
 	public ArrayList<Personne> listeDesClients() {
 		// TODO Auto-generated method stub
-		Personne personne = new Personne();
 		ArrayList<Personne> listePersonnes = new ArrayList<Personne>();
 		listePersonnes = conseillerDao.listeDesClients();
 		return listePersonnes;
+	}
+	
+	//Permet d'afficher les comptes d'un client
+	public ArrayList<Compte> listeDesComptes(String id)
+	{
+		ArrayList<Compte> listeDesComptes = new ArrayList<Compte>();
+		listeDesComptes = conseillerDao.listeDesComptes(id);
+		return listeDesComptes;
+		
 	}
 
 	

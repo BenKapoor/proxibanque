@@ -1,10 +1,12 @@
 package eu.ensup.proxibanque.dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import eu.ensup.proxibanque.domaine.Compte;
 import eu.ensup.proxibanque.domaine.Personne;
 
 public class ConseillerDao extends AccesBd {
@@ -63,9 +65,9 @@ public class ConseillerDao extends AccesBd {
 		try {
 
 			String sql = " UPDATE `personne` SET nom = '" + personne.getNom() + "' , prenom = '" + personne.getPrenom()
-			+ "' , adresse = '" + personne.getAdresse() + "' , CodePostal = '" + personne.getCodePostal()
-			+ "' , ville = '" + personne.getVille() + "' , telephone = '" + personne.getTelephone()
-			+ "' WHERE id = '" + personne.getId() + "'";
+					+ "' , adresse = '" + personne.getAdresse() + "' , CodePostal = '" + personne.getCodePostal()
+					+ "' , ville = '" + personne.getVille() + "' , telephone = '" + personne.getTelephone()
+					+ "' WHERE id = '" + personne.getId() + "'";
 			System.out.println("Ligne update");
 
 			// Etape 4 : exécution requête
@@ -135,9 +137,53 @@ public class ConseillerDao extends AccesBd {
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return null;
 		}
 
 		seDeconnecter();
 		return listePersonne;
 	}
+	}
+	
+	public ArrayList<Compte> listeDesComptes(String id) {
+		String numCompte;
+		Float solde;
+		Date dateOuverture;
+		boolean type;
+		
+		ArrayList<Compte> listeCompte = new ArrayList<Compte>();
+
+		seConnecter();
+		try {
+
+			String sql = "SELECT numCompte, solde, dateOuverture, type from compte, client WHERE compte.idClient = client.idPersonne ORDER BY compte.numCompte";
+
+			rs = st.executeQuery(sql);
+
+			while (rs.next()) {
+
+				numCompte = rs.getString("numCompte");
+				System.out.println(numCompte);
+				solde = rs.getFloat("solde");
+				System.out.println(solde);
+				java.sql.Date dbSqlDate = rs.getDate("dateOuverture");
+				System.out.println(dbSqlDate);
+				type = rs.getBoolean("type");
+				System.out.println(type);
+
+				Compte compte = new Compte(numCompte, solde, dbSqlDate, type);
+				System.out.println(compte);
+				listeCompte.add(compte);
+			}
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+
+		seDeconnecter();
+		return listeCompte;
+	}
+	
 }

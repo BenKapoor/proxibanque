@@ -13,6 +13,18 @@ public class Compte {
 		super();
 	}
 	
+	
+
+	public Compte(String numCompte, Float solde, Date dateOuverture, boolean type) {
+		super();
+		this.numCompte = numCompte;
+		this.solde = solde;
+		this.dateOuverture = dateOuverture;
+		this.type = type;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Compte [numCompte=" + numCompte + ", solde=" + solde + ", dateOuverture=" + dateOuverture + ", type="
